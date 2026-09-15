@@ -2,24 +2,37 @@ import { useState } from "react";
 import { Icon } from "../../shared/components/Icon.jsx";
 import { authApi } from "./auth.api.js";
 
+const SEED_EMAIL = "jordan.blake@northpeak.io";
+const SEED_PASSWORD = "password123";
+
 export function Login({ onSignedIn }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [submitting, setSubmitting] = useState(false);
+    const [seedSubmitting, setSeedSubmitting] = useState(false);
+
+    async function performLogin(loginEmail, loginPassword) {
+        setError("");
+        try {
+            const { responder, token } = await authApi.login(loginEmail, loginPassword);
+            onSignedIn(responder, token);
+        } catch (requestError) {
+            setError(requestError.message);
+        }
+    }
 
     async function handleSubmit(event) {
         event.preventDefault();
         setSubmitting(true);
-        setError("");
-        try {
-            const { responder, token } = await authApi.login(email, password);
-            onSignedIn(responder, token);
-        } catch (requestError) {
-            setError(requestError.message);
-        } finally {
-            setSubmitting(false);
-        }
+        await performLogin(email, password);
+        setSubmitting(false);
+    }
+
+    async function handleSeedLogin() {
+        setSeedSubmitting(true);
+        await performLogin(SEED_EMAIL, SEED_PASSWORD);
+        setSeedSubmitting(false);
     }
 
     return (
@@ -60,6 +73,18 @@ export function Login({ onSignedIn }) {
                         <h1>Sign in</h1>
                         <p className="subtitle">Access the on-call workspace for your team.</p>
                     </div>
+                    <button
+                        className="button ghost seed-login-button"
+                        disabled={submitting || seedSubmitting}
+                        type="button"
+                        onClick={handleSeedLogin}
+                    >
+                        <Icon name="user" size={16} />
+                        {seedSubmitting ? "Signing in…" : "Continue as seeded admin"}
+                    </button>
+                    <div className="auth-divider">
+                        <span>or sign in manually</span>
+                    </div>
                     <form className="auth-form" onSubmit={handleSubmit}>
                         <div className="field">
                             <label htmlFor="email">Email</label>
@@ -87,16 +112,17 @@ export function Login({ onSignedIn }) {
                             />
                         </div>
                         {error && <p className="form-error-banner" role="alert">{error}</p>}
-                        <button className="button primary" disabled={submitting} type="submit">
+                        <button className="button primary" disabled={submitting || seedSubmitting} type="submit">
                             {submitting ? "Signing in…" : "Sign in"}
                         </button>
                     </form>
                     <div className="auth-seed-hint">
-                        Seeded login: <code>jordan.blake@northpeak.io</code> / <code>password123</code>
+                        Seeded login: <code>{SEED_EMAIL}</code> / <code>{SEED_PASSWORD}</code>
                     </div>
                 </div>
             </div>
         </main>
     );
 }
+
 
