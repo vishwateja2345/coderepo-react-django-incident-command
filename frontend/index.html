@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <script>document.documentElement.dataset.theme = localStorage.getItem("incident-theme") === "light" ? "light" : "dark";</script>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#0b0f14" media="(prefers-color-scheme: dark)" />
+        <meta name="theme-color" content="#f5f7fa" media="(prefers-color-scheme: light)" />
+        <title>Incident Command</title>
+        <style>
+            html, body, #root { width: 100%; min-width: 320px; min-height: 100%; margin: 0; }
+            body { background: #0b0f14; }
+            html[data-theme="light"] body, html[data-theme="light"] .initial-boot { background: #f5f7fa; }
+            html[data-theme="light"] .initial-boot { color: #1c2430; }
+            .initial-boot { display: grid; position: fixed; inset: 0; place-content: center; gap: 20px; background: #0b0f14; color: #e6e9ef; font-family: Arial, sans-serif; }
+            .initial-boot-brand { display: flex; align-items: center; gap: 12px; font-size: 22px; letter-spacing: -.2px; }
+            .initial-boot-mark { display: grid; width: 40px; height: 40px; place-items: center; border-radius: 10px; background: #5b8cff; color: #0b0f14; font-weight: 700; }
+            .initial-boot-progress { width: 140px; height: 3px; margin: 0 auto; overflow: hidden; border-radius: 2px; background: #1c2836; }
+            .initial-boot-progress::after { display: block; width: 40%; height: 100%; border-radius: inherit; background: #5b8cff; content: ""; animation: boot-progress 900ms ease-in-out infinite; }
+            @keyframes boot-progress { 0% { transform: translateX(-110%) scaleX(.75); } 50% { transform: translateX(95%) scaleX(1.15); } 100% { transform: translateX(310%) scaleX(.7); } }
+            @media (prefers-reduced-motion: reduce) { .initial-boot-progress::after { animation: none; transform: translateX(70%); } }
+        </style>
+    </head>
+    <body>
+        <div id="root"><main class="initial-boot" aria-hidden="true"><div class="initial-boot-brand"><span class="initial-boot-mark">!</span><span>Incident Command</span></div><div class="initial-boot-progress"></div></main></div>
+        <script type="module" src="/src/main.jsx"></script>
+    </body>
+</html>

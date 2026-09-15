@@ -1,0 +1,19 @@
+ROLES = ["admin", "responder"]
+
+MAX_NAME_LENGTH = 120
+MAX_EMAIL_LENGTH = 254
+MAX_TITLE_LENGTH = 120
+MAX_PHONE_LENGTH = 40
+MIN_PASSWORD_LENGTH = 8
+MAX_PASSWORD_LENGTH = 128
+DEFAULT_AVATAR_COLOR = "#5f6368"
+AVATAR_PALETTE = [
+    "#4f46e5",
+    "#0891b2",
+    "#b45309",
+    "#be185d",
+    "#16a34a",
+    "#7c3aed",
+    "#dc2626",
+    "#0d9488",
+]
