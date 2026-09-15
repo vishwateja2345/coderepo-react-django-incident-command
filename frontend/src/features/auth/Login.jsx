@@ -48,16 +48,16 @@ export function Login({ onSignedIn }) {
                 </div>
                 <div className="auth-showcase-stats">
                     <div>
-                        <strong>8</strong>
-                        <span>Response workflows</span>
+                        <strong>Escalation policies</strong>
+                        <span>Auto-page the right responder</span>
                     </div>
                     <div>
-                        <strong>24/7</strong>
-                        <span>Rotation coverage</span>
+                        <strong>On-call rotations</strong>
+                        <span>Round-the-clock coverage</span>
                     </div>
                     <div>
-                        <strong>&lt;1m</strong>
-                        <span>Alert-to-incident time</span>
+                        <strong>Runbook workflows</strong>
+                        <span>Guided incident response</span>
                     </div>
                 </div>
             </section>
