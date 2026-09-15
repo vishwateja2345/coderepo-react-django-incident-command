@@ -330,6 +330,7 @@ dialog.confirm-dialog .dialog-actions { padding: 18px 0 0; border-top: 0; }
 .sparkline { display: block; overflow: visible; }
 
 .integration-key { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--field); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12.5px; }
+.integration-key span { min-width: 0; overflow-wrap: anywhere; }
 
 .detail-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr); gap: 18px; align-items: start; }
 .detail-section { display: grid; gap: 10px; margin-bottom: 22px; }
