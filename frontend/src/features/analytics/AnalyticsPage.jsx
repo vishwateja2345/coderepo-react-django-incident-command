@@ -156,7 +156,7 @@ export function AnalyticsPage({ navRevision }) {
             return;
         }
 
-        setAppliedRange({ from: new Date(fromInput).toISOString(), to: new Date(toInput).toISOString() });
+        setAppliedRange({ from: new Date(`${fromInput}T00:00:00`).toISOString(), to: new Date(`${toInput}T23:59:59.999`).toISOString() });
         setReloadKey((value) => value + 1);
     };
 
