@@ -74,13 +74,13 @@ export function Login({ onSignedIn }) {
                         <p className="subtitle">Access the on-call workspace for your team.</p>
                     </div>
                     <button
-                        className="button ghost seed-login-button"
+                        className="button primary seed-login-button"
                         disabled={submitting || seedSubmitting}
                         type="button"
                         onClick={handleSeedLogin}
                     >
-                        <Icon name="user" size={16} />
-                        {seedSubmitting ? "Signing in…" : "Continue as seeded admin"}
+                        <Icon name="zap" size={16} />
+                        {seedSubmitting ? "Signing in…" : "Log in with demo account"}
                     </button>
                     <div className="auth-divider">
                         <span>or sign in manually</span>
@@ -112,12 +112,12 @@ export function Login({ onSignedIn }) {
                             />
                         </div>
                         {error && <p className="form-error-banner" role="alert">{error}</p>}
-                        <button className="button primary" disabled={submitting || seedSubmitting} type="submit">
+                        <button className="button ghost" disabled={submitting || seedSubmitting} type="submit">
                             {submitting ? "Signing in…" : "Sign in"}
                         </button>
                     </form>
                     <div className="auth-seed-hint">
-                        Seeded login: <code>{SEED_EMAIL}</code> / <code>{SEED_PASSWORD}</code>
+                        Demo credentials: <code>{SEED_EMAIL}</code> / <code>{SEED_PASSWORD}</code>
                     </div>
                 </div>
             </div>
