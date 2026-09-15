@@ -31,7 +31,14 @@ def api_exception_handler(exc, context):
     response = exception_handler(exc, context)
 
     if response is not None:
-        return response
+        # A DRF-native exception (malformed JSON body, disallowed HTTP method, unsupported content
+        # type, and similar) reached us before any view code ran. Normalize it into the same
+        # {"error": {"code", "message"}} envelope every other response uses, rather than leaking
+        # DRF's own {"detail": ...} shape to API consumers.
+        detail = response.data.get("detail") if isinstance(response.data, dict) else None
+        message = str(detail) if detail is not None else "The request could not be processed."
+
+        return Response({"error": {"code": "REQUEST_ERROR", "message": message}}, status=response.status_code)
 
     print("Unhandled error:", repr(exc))
 

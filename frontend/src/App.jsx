@@ -12,6 +12,7 @@ import { AnalyticsPage } from "./features/analytics/AnalyticsPage.jsx";
 import { StatusPagePage } from "./features/statuspage/StatusPagePage.jsx";
 import { RespondersPage } from "./features/responders/RespondersPage.jsx";
 import { Icon } from "./shared/components/Icon.jsx";
+import { ErrorBoundary } from "./shared/components/ErrorBoundary.jsx";
 import { Avatar } from "./shared/components/Badge.jsx";
 import { Toaster } from "./shared/components/Toaster.jsx";
 import { hasSessionToken, setSessionToken } from "./shared/api/client.js";
@@ -106,6 +107,10 @@ export default function App() {
         return () => window.removeEventListener("incident-session-expired", handleExpired);
     }, []);
 
+    useEffect(() => {
+        document.querySelector(".app-main")?.scrollTo(0, 0);
+    }, [page]);
+
     const handleSignedIn = useCallback((account, token) => {
         setSessionToken(token);
         setResponder(account);
@@ -185,7 +190,9 @@ export default function App() {
                 </button>
             </header>
             <main className="app-main">
-                <ActiveComponent currentResponder={responder} navigate={goTo} navRevision={navRevision} onDataChanged={refreshNav} />
+                <ErrorBoundary inline key={page}>
+                    <ActiveComponent currentResponder={responder} navigate={goTo} navRevision={navRevision} onDataChanged={refreshNav} />
+                </ErrorBoundary>
             </main>
             <Toaster />
         </div>
