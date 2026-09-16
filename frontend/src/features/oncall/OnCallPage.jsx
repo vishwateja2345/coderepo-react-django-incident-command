@@ -154,6 +154,7 @@ function ScheduleFormFields({ form, fieldErrors, responders, responderMap, onCha
                 <label htmlFor="schedule-rotation-start">Rotation start</label>
                 <input
                     id="schedule-rotation-start"
+                    required
                     type="datetime-local"
                     value={form.rotationStartAt}
                     onChange={(event) => onChange("rotationStartAt", event.target.value)}
@@ -304,13 +305,13 @@ function OverrideFormFields({ busy, fieldErrors, form, responders, onChange }) {
             <div className="field-row">
                 <div className="field">
                     <label htmlFor="override-start">Start</label>
-                    <input id="override-start" type="datetime-local" value={form.startAt} onChange={(event) => onChange("startAt", event.target.value)} />
+                    <input id="override-start" required type="datetime-local" value={form.startAt} onChange={(event) => onChange("startAt", event.target.value)} />
                     {getFieldError(fieldErrors, "startAt") && <p className="field-error">{getFieldError(fieldErrors, "startAt")}</p>}
                 </div>
 
                 <div className="field">
                     <label htmlFor="override-end">End</label>
-                    <input id="override-end" type="datetime-local" value={form.endAt} onChange={(event) => onChange("endAt", event.target.value)} />
+                    <input id="override-end" required type="datetime-local" value={form.endAt} onChange={(event) => onChange("endAt", event.target.value)} />
                     {getFieldError(fieldErrors, "endAt") && <p className="field-error">{getFieldError(fieldErrors, "endAt")}</p>}
                 </div>
             </div>
