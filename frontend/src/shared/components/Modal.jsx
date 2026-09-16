@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 export function Modal({ children, className = "", label = "Dialog", labelledBy, onClose }) {
     const reference = useRef(null);
     const closeReference = useRef(onClose);
+    const triggerReference = useRef(null);
 
     useEffect(() => {
         closeReference.current = onClose;
@@ -10,6 +11,9 @@ export function Modal({ children, className = "", label = "Dialog", labelledBy, 
 
     useEffect(() => {
         const dialog = reference.current;
+        if (!dialog.contains(document.activeElement)) {
+            triggerReference.current = document.activeElement;
+        }
         dialog.showModal();
         window.requestAnimationFrame(() => dialog.querySelector("[autofocus], [data-autofocus]")?.focus());
         const cancel = (event) => {
@@ -17,7 +21,13 @@ export function Modal({ children, className = "", label = "Dialog", labelledBy, 
             closeReference.current();
         };
         dialog.addEventListener("cancel", cancel);
-        return () => dialog.removeEventListener("cancel", cancel);
+        return () => {
+            dialog.removeEventListener("cancel", cancel);
+            const trigger = triggerReference.current;
+            if (trigger instanceof HTMLElement && document.body.contains(trigger)) {
+                trigger.focus();
+            }
+        };
     }, []);
 
     return (
